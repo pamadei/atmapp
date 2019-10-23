@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-function getCurrentBalanceCanvas(pin, ctx, canvas) {
+function getCurrentBalanceCanvas(pin, ctx, canvas, resetATM) {
   const pinNumber = {
     pin
   }
@@ -21,21 +21,25 @@ function getCurrentBalanceCanvas(pin, ctx, canvas) {
       ctx.beginPath();
       ctx.font = "12px Monaco";
       ctx.fillText('Please enter a valid Pin', 155, 100);
+      setTimeout(() => {
+        resetATM(true);      
+      }, 3000);
     })
 }
 
 async function getCurrentBalance(pin){
   try {
     const pinNumber = {
-      pin
+      pin,
+      error: false
     }
     const url = 'https://frontend-challenge.screencloud-michael.now.sh/api/pin/'
     const res = await axios.post(url, pinNumber);
     const data = await res.data.currentBalance;
     return data;
-  } catch(err)  {
-    console.log('sss')
-  }
+  } catch(err) {
+    return false;
+    }
 }
 
 export {
