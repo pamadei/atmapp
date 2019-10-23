@@ -14,7 +14,6 @@ let xCord = 115;
 let yCord = 50;
 setCanvas(ctx);
 
-
 // Set Elements //
 let monitorPin = document.getElementById('monitorPin');
 let monitorDigits = document.getElementById('monitorDigits');
@@ -29,7 +28,7 @@ const WITHDRAW_LIMIT = -100;
 
 const INITIAL_NOTES_STATE = {
   5: 4,
-  10: 15, // change back to  15
+  10: 15,
   20: 7
 }
 
@@ -43,10 +42,6 @@ let amountNotesAvailable = getAmountToWithdraw(notesAvailable);
 const initialAmountNotesAvailable = getAmountToWithdraw(INITIAL_NOTES_STATE);
 
 //// Helpers ////
-
-// Reset Cordenates //
-const resetCoordX = () => xCord = 115
-
 
 // Clear Canvas //
 const clearCanvas = (x, y, width, height) => {
@@ -133,18 +128,12 @@ const resetATM = (pinError) => {
   container.appendChild(monitorDigits);
 
   pinEntered = false;
-  // resetATMchecked = true; // Check if it can be removed.
-  // checkedCurrentBalance= false; // Check if it can be removed
+
   // set initial state Canvas 
   xCord = 115;
   yCord = 50;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.beginPath();
-  ctx.font = "30px Monaco";
-  ctx.fillText('Welcome', 155, 30);
-  ctx.font = "12px Monaco";
-  ctx.fillText('Enter your Pin', 155, 50);
-  ctx.font = "30px Monaco";
+  setCanvas(ctx);
 
   notesAvailable = {
     ...INITIAL_NOTES_STATE
@@ -170,8 +159,7 @@ export default class SettigsMenu {
 
   enter() {
 
-    /// get pin numbers and make an API CALL
-    // let pin = "1111"
+    // Get pin numbers and make an API CALL //
     const enterFun = async () => {
       if (!pinEntered) {
         let pinsArray = []
@@ -180,16 +168,12 @@ export default class SettigsMenu {
           pinsArray.push(pins[i].innerHTML);
         }
         const pin = pinsArray.join('')
-        // Get CurrentBalance
-        // Potential Helper
-
-        // Check only one time the currentBalance
+        // Get CurrentBalance //
+        // Check only one time the currentBalance API
         if (!checkedCurrentBalance) {
           const currentBalanceResponse = await getCurrentBalance(pin);
-          console.log(currentBalanceResponse)
           initialCurrentBalance = currentBalanceResponse;
           currentBalance = initialCurrentBalance;
-
           checkedCurrentBalance = true;
           getCurrentBalanceCanvas(pin, ctx, canvas, resetATM)
         } else {
@@ -199,7 +183,6 @@ export default class SettigsMenu {
         }
         pinEntered = true;
         if (initialCurrentBalance) {
-          console.log(initialCurrentBalance)
           setTimeout(() => {
             clearCanvas(0, 0, canvas.width, canvas.height);
             ctx.beginPath();
@@ -209,29 +192,28 @@ export default class SettigsMenu {
           }, 4000);
         }
       } else {
-        // getDigits from User
+        // Get Digits from User //
         let digitsArray = []
         const digits = document.getElementById('monitorDigits').getElementsByClassName('myDigits')
         for (let i = 0; i < digits.length; i++) {
           digitsArray.push(digits[i].innerHTML);
         }
         const amountToWithdraw = +digitsArray.join('')
-
-        // Update currentBalance
+        // Update currentBalance as user withdraws
         currentBalance -= amountToWithdraw;
-        // Check overdraft
+        // Check if user goes overdrawn
         if (currentBalance < WITHDRAW_LIMIT) {
           currentBalance = WITHDRAW_LIMIT;
         }
         if (amountToWithdraw >= amountNotesAvailable) {
           currentBalance = -(initialAmountNotesAvailable - initialCurrentBalance);
         }
-        console.log('last : ' + currentBalance)
+        // Get the result of the Operations
 
-        const statusOps = withdrawMoney(amountToWithdraw, notesAvailable, currentBalance);
+        const resultOps = withdrawMoney(amountToWithdraw, notesAvailable, currentBalance);
         switch (true) {
           case amountToWithdraw >= amountNotesAvailable && currentBalance >= WITHDRAW_LIMIT:
-            console.log(' Cases 1 - Working - When the ATM does not have more notes avaialables')
+            // Cases 1 - When the ATM does not have more notes avaialables
             clearCanvas(0, 0, canvas.width, canvas.height);
             ctx.beginPath();
             ctx.font = "10px Monaco";
@@ -255,10 +237,10 @@ export default class SettigsMenu {
               ctx.beginPath();
               ctx.font = "18px Monaco";
               ctx.fillText('Your withdrawl: ', 155, 30);
-              ctx.fillText(`£${Object.values(statusOps.notesToWithdraw).reduce((t, m, i) => t + m * Object.keys(statusOps.notesToWithdraw)[i], 0)}`, 155, 55);
+              ctx.fillText(`£${Object.values(resultOps.notesToWithdraw).reduce((t, m, i) => t + m * Object.keys(resultOps.notesToWithdraw)[i], 0)}`, 155, 55);
               // Display withdraw on canvas //
-              for (let n in statusOps.notesToWithdraw) {
-                ctx.fillText(`* £${n} x ${statusOps.notesToWithdraw[n]} = ${n * statusOps.notesToWithdraw[n]}`, 150, yCord += 20);
+              for (let n in resultOps.notesToWithdraw) {
+                ctx.fillText(`* £${n} x ${resultOps.notesToWithdraw[n]} = ${n * resultOps.notesToWithdraw[n]}`, 150, yCord += 20);
               }
               // Reset to 4000;
             }, 5000);
@@ -280,8 +262,8 @@ export default class SettigsMenu {
             ctx.font = "12px Monaco";
 
             // Display withdraw on canvas //
-            for (let n in statusOps.notesToWithdraw) {
-              ctx.fillText(`* £${n} x ${statusOps.notesToWithdraw[n]} = ${n * statusOps.notesToWithdraw[n]}`, 150, yCord += 20);
+            for (let n in resultOps.notesToWithdraw) {
+              ctx.fillText(`* £${n} x ${resultOps.notesToWithdraw[n]} = ${n * resultOps.notesToWithdraw[n]}`, 150, yCord += 20);
             }
             setTimeout(() => {
               initialState();
@@ -299,8 +281,8 @@ export default class SettigsMenu {
             ctx.font = "12px Monaco";
 
             // Display withdraw on canvas //
-            for (let n in statusOps.notesToWithdraw) {
-              ctx.fillText(`* £${n} x ${statusOps.notesToWithdraw[n]} = ${n * statusOps.notesToWithdraw[n]}`, 150, yCord += 20);
+            for (let n in resultOps.notesToWithdraw) {
+              ctx.fillText(`* £${n} x ${resultOps.notesToWithdraw[n]} = ${n * resultOps.notesToWithdraw[n]}`, 150, yCord += 20);
             }
             setTimeout(() => {
               ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -327,8 +309,8 @@ export default class SettigsMenu {
             ctx.fillText(`£${amountToWithdraw}`, 155, 55);
 
             // Display withdraw on canvas //
-            for (let n in statusOps.notesToWithdraw) {
-              ctx.fillText(`* £${n} x ${statusOps.notesToWithdraw[n]} = ${n * statusOps.notesToWithdraw[n]}`, 150, yCord += 20);
+            for (let n in resultOps.notesToWithdraw) {
+              ctx.fillText(`* £${n} x ${resultOps.notesToWithdraw[n]} = ${n * resultOps.notesToWithdraw[n]}`, 150, yCord += 20);
             }
             setTimeout(() => {
               ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -345,7 +327,7 @@ export default class SettigsMenu {
           default:
             break;
         }
-        amountNotesAvailable = getAmountToWithdraw(statusOps.notesAvailable);
+        amountNotesAvailable = getAmountToWithdraw(resultOps.notesAvailable);
       }
 
     }
