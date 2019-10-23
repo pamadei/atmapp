@@ -5,20 +5,15 @@ import {
 } from './app/getCurrentBalance/getCurrentBalance'
 import withdrawMoney from './app/withdrawMoney/withdrawMoney'
 import getAmountToWithdraw from './app/getAmountToWithdraw/getAmountToWitdraw'
+import setCanvas from './app/canvas/setCanvas/SetCanvas'
 
 // Setting up Canvas
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
-ctx.beginPath();
-ctx.font = "30px Monaco";
-ctx.fillStyle = "#8BEC68"
-ctx.textAlign = "center";
 let xCord = 115;
 let yCord = 50;
-ctx.fillText('Welcome', 155, 30);
-ctx.font = "12px Monaco";
-ctx.fillText('Enter your Pin', 155, 50);
-ctx.font = "30px Monaco";
+setCanvas(ctx);
+
 
 // Set Elements //
 let monitorPin = document.getElementById('monitorPin');
