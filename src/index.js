@@ -6,6 +6,7 @@ import {
 import withdrawMoney from './app/withdrawMoney/withdrawMoney'
 import getAmountToWithdraw from './app/getAmountToWithdraw/getAmountToWitdraw'
 import setCanvas from './app/canvas/setCanvas/SetCanvas'
+import setCavasYourWithdrawl from './app/canvas/setCavasYourWithdrawl/setCavasYourWithdrawl'
 
 // Setting up Canvas
 const canvas = document.getElementById("myCanvas");
@@ -208,8 +209,7 @@ export default class SettigsMenu {
         if (amountToWithdraw >= amountNotesAvailable) {
           currentBalance = -(initialAmountNotesAvailable - initialCurrentBalance);
         }
-        // Get the result of the Operations
-
+        // Get the result of the Operation.
         const resultOps = withdrawMoney(amountToWithdraw, notesAvailable, currentBalance);
         switch (true) {
           case amountToWithdraw >= amountNotesAvailable && currentBalance >= WITHDRAW_LIMIT:
@@ -242,7 +242,6 @@ export default class SettigsMenu {
               for (let n in resultOps.notesToWithdraw) {
                 ctx.fillText(`* £${n} x ${resultOps.notesToWithdraw[n]} = ${n * resultOps.notesToWithdraw[n]}`, 150, yCord += 20);
               }
-              // Reset to 4000;
             }, 5000);
             setTimeout(() => {
               ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -252,16 +251,10 @@ export default class SettigsMenu {
             }, 7000);
             break;
           case amountToWithdraw < amountNotesAvailable && currentBalance >= 0:
-            console.log(' Cases 2 - Working - When user perfoms a normal withdraw')
-            // Canvas //
+            // Cases 2 - When user perfoms a normal withdraw
             clearCanvas(0, 0, canvas.width, canvas.height);
-            ctx.beginPath();
-            ctx.font = "18px Monaco";
-            ctx.fillText('Your withdrawl: ', 155, 30);
-            ctx.fillText(`£${amountToWithdraw}`, 155, 55);
-            ctx.font = "12px Monaco";
+            setCavasYourWithdrawl(ctx,amountToWithdraw);
 
-            // Display withdraw on canvas //
             for (let n in resultOps.notesToWithdraw) {
               ctx.fillText(`* £${n} x ${resultOps.notesToWithdraw[n]} = ${n * resultOps.notesToWithdraw[n]}`, 150, yCord += 20);
             }
@@ -271,14 +264,9 @@ export default class SettigsMenu {
             }, 4000);
             break;
           case amountToWithdraw < amountNotesAvailable && 0 > currentBalance && currentBalance > -100:
-            console.log('Cases 3 - Working - When user needs to use overdraft')
-            // Canvas //
+            // Case 3 - When user needs to use overdraft
             clearCanvas(0, 0, canvas.width, canvas.height);
-            ctx.beginPath();
-            ctx.font = "18px Monaco";
-            ctx.fillText('Your withdrawl: ', 155, 30);
-            ctx.fillText(`£${amountToWithdraw}`, 155, 55);
-            ctx.font = "12px Monaco";
+            setCavasYourWithdrawl(ctx,amountToWithdraw);
 
             // Display withdraw on canvas //
             for (let n in resultOps.notesToWithdraw) {
@@ -300,13 +288,9 @@ export default class SettigsMenu {
             }, 8000);
             break;
           case amountToWithdraw < amountNotesAvailable:
-            console.log(currentBalance + ' Cases 4 - Working')
-            // Withdraw Helper //
+            // Case 4 - When a user withdraw all its current balance and use all the overdraft.
             clearCanvas(0, 0, canvas.width, canvas.height);
-            ctx.beginPath();
-            ctx.font = "18px Monaco";
-            ctx.fillText('Your withdrawl: ', 155, 30);
-            ctx.fillText(`£${amountToWithdraw}`, 155, 55);
+            setCavasYourWithdrawl(ctx,amountToWithdraw);
 
             // Display withdraw on canvas //
             for (let n in resultOps.notesToWithdraw) {
