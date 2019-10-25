@@ -1,6 +1,7 @@
 import getAmountToWithdraw from '../getAmountToWithdraw/getAmountToWitdraw'
 
-function withdrawMoney(amountToWithdraw, notesAvailable, currentBalance) {
+function withdrawMoney(amountToWithdraw, notesAvailable) {
+
   const notesToWithdraw = {};
   const resultOps = {
     notesAvailable,
@@ -30,7 +31,7 @@ function withdrawMoney(amountToWithdraw, notesAvailable, currentBalance) {
     }
   }
   amountNotesAvailable = getAmountToWithdraw(resultOps.notesAvailable);
-
+  console.log(resultOps.notesAvailable)
   return resultOps
 }
 
