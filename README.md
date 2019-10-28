@@ -30,11 +30,13 @@ We are using webpack as a bundler and optmization tool. For development, as we m
 
 We should consider the following assumptions:
 
-* Once the user has provided the PIN, the user will be able to withdraw its current Balance plus a overdraft of up to £100.
-* There is only one valid PIN (1111). Although if a different PIN is provided by the user which the API return a valid response. The ATM APP will get the current balance and operate normally and expected.
-* User session - A user session is while the SPA is not reloaded. 
+* Once the user has provided a correct PIN number, the user will be able to withdraw from its current balance with the posibility to use a overdraft of up to £100.
+* There is only one valid PIN (1111). Although if a different PIN is provided by the user which the POST request call returns a valid response, the ATM APP will get the current balance and operate as normal and expected.
+* Initial State - The initial state is when the ATM has £310 available to be withdrawn. The availables notes can be ilustrate with the following **Object: {5: 4,10: 15,20: 7} **.
+* User session - A user session is while the SPA (Single-page application) is not reloaded. 
+* If the SPA is reloaded or the user clicks on the action button **cancel**. All the variables are rebooted and both user's current balance and ATM's avaialable notes are setup as the initial state.
 * The ATM has a limited number of Available Notes and this can not be updated through the session of a user.
-* To check the current balance we are making a POST api call which it happens only once. After the user submit their correct PIN the current balance is saved in a variable.
+* To check the current balance we are making a POST request which it happens only once. After the user submit their correct PIN the current balance is saved in a variable.
 
 ***
 
