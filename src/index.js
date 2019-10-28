@@ -38,8 +38,6 @@ let notesAvailable = {
 let amountNotesAvailable = getAmountToWithdraw(notesAvailable);
 const initialAmountNotesAvailable = getAmountToWithdraw(INITIAL_NOTES_STATE);
 
-//// Helpers ////
-
 // Clear Canvas //
 const clearCanvas = (x, y, width, height) => {
 	ctx.clearRect(x, y, width, height);
