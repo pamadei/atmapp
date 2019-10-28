@@ -6,13 +6,17 @@ const {
 } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = merge(common, {
   mode: "production",
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.[hash].js'
+  },
+  optimization: {
+    minimizer: [new OptimizeCssAssetsPlugin(), new TerserPlugin()]
   },
   plugins: [
     new MiniCssExtractPlugin({
