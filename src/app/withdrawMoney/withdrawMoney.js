@@ -16,22 +16,22 @@ function withdrawMoney(amountToWithdraw, notesAvailable) {
   }
 
   while (amountToWithdraw !== 0 && amountToWithdraw > 0) {
-    for (let key2 in resultOps.notesAvailable) {
-      if ((amountToWithdraw - +key2) >= 0 && resultOps.notesAvailable[key2] > 0) {
+    for (let key in resultOps.notesAvailable) {
+      if ((amountToWithdraw - +key) >= 0 && resultOps.notesAvailable[key] > 0) {
         // console.log(amountToWithdraw);
-        amountToWithdraw -= +key2;
-        if (typeof resultOps.notesToWithdraw[key2] === 'undefined') {
-          resultOps.notesToWithdraw[key2] = 1;
-          resultOps.notesAvailable[key2]--;
+        amountToWithdraw -= +key;
+        if (typeof resultOps.notesToWithdraw[key] === 'undefined') {
+          resultOps.notesToWithdraw[key] = 1;
+          resultOps.notesAvailable[key]--;
         } else {
-          resultOps.notesToWithdraw[key2]++;
-          resultOps.notesAvailable[key2]--;
+          resultOps.notesToWithdraw[key]++;
+          resultOps.notesAvailable[key]--;
         }
       }
     }
   }
   amountNotesAvailable = getAmountToWithdraw(resultOps.notesAvailable);
-  console.log(resultOps.notesAvailable)
+  console.log(resultOps)
   return resultOps
 }
 
