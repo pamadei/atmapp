@@ -10,8 +10,8 @@
   top: 100px;
   left: 60px;
   background: #000;
-  width: 500px;
-  height: 500px;
+  width: 650px;
+  height: 650px;
   border-radius: 16px;
 }
 
@@ -53,6 +53,8 @@ body {
   flex-wrap: wrap;
   text-align: center;
   justify-content: center;
+  margin: 4rem;
+  padding: 1rem 2rem;
 }
 
 .columns {
@@ -73,4 +75,32 @@ body {
   box-sizing: border-box;
   transition: all 0.6s ease-out;
   ;
+}
+
+@media (max-width: 500px) {
+  .main {
+    position: absolute;
+    left: 0%;
+    top: 100%;
+  }
+
+  .canvas {
+    top: 25px;
+    left: 60px;
+    width: 300px;
+    height: 300px;
+  }
+
+  .panel {
+    margin: 1rem;
+    padding: 0rem;
+  }
+
+  .columns {
+    max-width: 80%;
+  }
+
+  .btn {
+    padding: 1.4rem;
+  }
 }
