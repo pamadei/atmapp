@@ -88,8 +88,6 @@ const initialState = () => {
 	monitorDigits.className = 'digits';
 	container.appendChild(monitorDigits);
 
-	// pinEntered = false;
-
 	// set initial state Canvas
 	xCord = 115;
 	yCord = 50;
@@ -121,7 +119,7 @@ const resetATM = (pinError) => {
 
 	pinEntered = false;
 
-	// set initial state Canvas
+	// Set initial state Canvas
 	xCord = 115;
 	yCord = 50;
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
