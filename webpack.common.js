@@ -8,20 +8,8 @@ module.exports = {
       template: './src/index.html',
     }),
   ],
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'main.[hash].js'
-  },
-  mode: 'development',
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    hot: true,
-    port: 9000
-  },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.js$/,
         exclude: /node_modules/,
         loader: [{
@@ -43,8 +31,18 @@ module.exports = {
         }]
       },
       {
-        test: /\.svg$/,
-        use: 'file-loader'
+        test: /\.html$/,
+        use: 'html-loader'
+      },
+      {
+        test: /\.(svg|png|jpg|gif)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: "[name].[hash].[ext]",
+            outputPath: "imgs"
+          }
+        }
       }
     ],
   },
