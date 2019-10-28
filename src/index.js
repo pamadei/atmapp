@@ -210,7 +210,7 @@ export default class SettigsMenu {
           currentBalance = -(initialAmountNotesAvailable - initialCurrentBalance);
         }
         // Get the result of the Operation.
-        const resultOps = withdrawMoney(amountToWithdraw, notesAvailable, currentBalance);
+        const resultOps = withdrawMoney(amountToWithdraw, notesAvailable);
         switch (true) {
           case amountToWithdraw >= amountNotesAvailable && currentBalance >= WITHDRAW_LIMIT:
             // Cases 1 - When the ATM does not have more notes avaialables
