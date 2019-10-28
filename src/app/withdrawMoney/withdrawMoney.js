@@ -1,3 +1,5 @@
+/* Helper function which given an amount to withdraw and the notes Available will return an object with notes to withdraw and the updated number of notes available  */
+
 import getAmountToWithdraw from '../getAmountToWithdraw/getAmountToWitdraw'
 
 function withdrawMoney(amountToWithdraw, notesAvailable) {
@@ -9,6 +11,7 @@ function withdrawMoney(amountToWithdraw, notesAvailable) {
   }
   // ATM Money
   let amountNotesAvailable = getAmountToWithdraw(resultOps.notesAvailable);
+
   // User Money
 
   if (amountToWithdraw > amountNotesAvailable) {

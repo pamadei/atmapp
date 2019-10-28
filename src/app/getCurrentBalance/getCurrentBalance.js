@@ -1,10 +1,12 @@
+/* API POST request to get the Current Balance given a correct PIN number */
+
 import axios from 'axios'
 
 function getCurrentBalanceCanvas(pin, ctx, canvas, resetATM) {
   const pinNumber = {
     pin
   }
-  
+
   const url = 'https://frontend-challenge.screencloud-michael.now.sh/api/pin/'
   axios.post(url, pinNumber)
     .then(res => {
@@ -22,12 +24,12 @@ function getCurrentBalanceCanvas(pin, ctx, canvas, resetATM) {
       ctx.font = "12px Monaco";
       ctx.fillText('Please enter a valid Pin', 155, 100);
       setTimeout(() => {
-        resetATM(true);      
+        resetATM(true);
       }, 3000);
     })
 }
 
-async function getCurrentBalance(pin){
+async function getCurrentBalance(pin) {
   try {
     const pinNumber = {
       pin,
@@ -37,9 +39,9 @@ async function getCurrentBalance(pin){
     const res = await axios.post(url, pinNumber);
     const data = await res.data.currentBalance;
     return data;
-  } catch(err) {
+  } catch (err) {
     return false;
-    }
+  }
 }
 
 export {
