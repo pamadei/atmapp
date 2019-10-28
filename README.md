@@ -10,7 +10,7 @@ Welcome to the **ATM App**. This app will emulate an ATM machine given a PIN cod
 
 * You need to have **NodeJS** installed - this app is running in the node *version: 10.15.1*. 
 * You need to have **npm** or **yarn** installed.
-* You need to run **npm install** to download the dependencies (i.e. Jest & Webpack Web Server).
+* You need to run **npm install** to download the dependencies (i.e. Jest, Webpack & Webpack Web Server).
 
 ***
 
@@ -43,11 +43,9 @@ We should consider the following assumptions:
 All the tests can be run by the following command **npm run test**.
 
 * All helper functions are returning the output that we are expecting.
-* GetAmountToWithdraw function return an typeof Object with two objects (notesAvaiables and notesToWithdraw).This helper function transform an object with notes to an amount that represent the sum of those notes.
-* GetCurrentBalance function makes a API POST request to get the Current Balance given a correct PIN number.
-* withdrawMoney function - Given an amount to withdraw and the notes Available will return an object with the number of notes to withdraw and the updated number of notes available.
-
-
+* **GetAmountToWithdraw function** return an typeof Object with two objects (notesAvaiables and notesToWithdraw).This helper function transform an object with notes to an amount that represent the sum of those notes.
+* **GetCurrentBalance function** makes a API POST request to get the Current Balance given a correct PIN number.
+* **WithdrawMoney function** - Given an amount to withdraw and the notes Available will return an object with the number of notes to withdraw and the updated number of notes available.
 
 
 ***
