@@ -16,7 +16,7 @@ Welcome to the **ATM App**. This app will emulate an ATM machine given a PIN cod
  
 ## Getting Started
  
-Once you clone this repo, you can run try the ATM APP by the following command to start a local web server: **npm start**.
+Once you clone this repo, you can try the ATM APP by the following command to start a local web server: **npm start**.
  
 ***
  
