@@ -36,7 +36,7 @@ We should consider the following assumptions:
 * User session - A user session is while the SPA (Single-page application) is not reloaded.
 * If the SPA is reloaded or the user clicks on the action button **cancel**. All the variables are rebooted and both user's current balance and ATM's available notes are setup as the initial state.
 * The ATM has a limited number of Available Notes and this can not be updated through the session of a user.
-* To check the current balance we are making a POST request which it happens only once. After users submit their correct PIN the current balance is saved in a variable.
+* To check the current balance we are making a POST request which it happens only once. After the user submits the correct PIN, the current balance is saved in a variable and updated accordingly depending on the user's withdrawals.
  
 ***
  
