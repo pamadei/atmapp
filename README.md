@@ -31,7 +31,7 @@ We are using webpack as a bundler and optimization tool. For development, as we 
 We should consider the following assumptions:
  
 * Once the user has provided a correct PIN number, the user will be able to withdraw from its current balance with the possibility to use a overdraft of up to £100.
-* There is only one valid PIN (1111). Although if a different PIN is provided by the user which the POST request call returns a valid response, the ATM APP will get the current balance and operate as normal and expected.
+* **There is only one valid PIN (1111)**. Although if a different PIN is provided by the user which the POST request call returns a valid response, the ATM APP will get the current balance and operate as normal and expected.
 * Initial State - The initial state is when the ATM has £310 available to be withdrawn. The available notes can be illustrated with the following **Object: {5: 4,10: 15,20: 7}**. Which represents to 4 notes of £5, 15 notes of £10 and 7 notes of £20.
 * User session - A user session is while the SPA (Single-page application) is not reloaded.
 * If the SPA is reloaded or the user clicks on the action button **cancel**. All the variables are rebooted and both user's current balance and ATM's available notes are setup as the initial state.
